@@ -40,6 +40,16 @@ abstract class CycleDetectorT {
     assertEquals(Some((5,4)), search("ABC*EFGH"))
   }
 
+  @Test
+  def testAA = {
+    assertEquals(Some((1,0)), search("*"))
+  }
+
+  @Test
+  def testABB = {
+    assertEquals(Some((1,1)), search("A*"))
+  }
+
   def search[E](seq: Seq[Char]): Option[(Int,Int)] = {
     detector.findCycle(CyclicLists.parse(seq))
   }
