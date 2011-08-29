@@ -1,11 +1,13 @@
 package cycledetection
 
+import Node.step
+
 /**
  * Robert W. Floyd's "Tortoise and Hare" algorithm.
  */
 class Floyd[E] extends CycleDetector[E]  {
 
-  def findCycle(list: Seq[E]): Option[(Int,Int)] = {
+  def findCycle(list: Node[E]): Option[(Int,Int)] = {
     /*
      * Find a repetition list[mu] = list[2mu]
      * The hare moves twice as fast as the tortoise.
@@ -14,9 +16,9 @@ class Floyd[E] extends CycleDetector[E]  {
     do {
       tort = step(tort)
       hare = step(step(hare))
-    } while (hare.nonEmpty && !(hare eq tort))
+    } while (hare != null && !(hare eq tort))
 
-    if (hare.isEmpty)
+    if (hare == null)
       return None
 
     /*
@@ -48,9 +50,5 @@ class Floyd[E] extends CycleDetector[E]  {
     } while (!(hare eq tort))
 
     return Some(lambda, mu)
-  }
-
-  def step(list: Seq[E]) = {
-    if (list.nonEmpty) list.tail else list
   }
 }

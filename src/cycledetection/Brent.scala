@@ -1,11 +1,13 @@
 package cycledetection
 
+import Node.step
+
 /**
  * Richard P. Brent's algorithm, also known as the "Teleporting Tortoise".
  */
 class Brent[E] extends CycleDetector[E]  {
 
-  def findCycle(list: Seq[E]): Option[(Int,Int)] = {
+  def findCycle(list: Node[E]): Option[(Int,Int)] = {
     /*
      * Main phase: hare searches successive powers of two while the
      * tortoise teleports to the hare's position after each pass.
@@ -22,9 +24,9 @@ class Brent[E] extends CycleDetector[E]  {
       }
       hare = step(hare)
       lambda += 1
-    } while (hare.nonEmpty && !(hare eq tort))
+    } while (hare != null && !(hare eq tort))
 
-    if (hare.isEmpty)
+    if (hare == null)
       return None
 
     /*
@@ -48,9 +50,5 @@ class Brent[E] extends CycleDetector[E]  {
     }
 
     return Some((lambda, mu))
-  }
-
-  def step(list: Seq[E]) = {
-    if (list.nonEmpty) list.tail else list
   }
 }

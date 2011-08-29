@@ -27,17 +27,17 @@ abstract class CycleDetectorT {
 
   @Test
   def testABA = {
-    assertEquals(Some((2,1)), search("*B"))
+    assertEquals(Some((2,0)), search("*B"))
   }
 
   @Test
   def testABCB = {
-    assertEquals(Some((2,2)), search("A*C"))
+    assertEquals(Some((2,1)), search("A*C"))
   }
 
   @Test
   def testABCDEFGHDEFGH = {
-    assertEquals(Some((5,4)), search("ABC*EFGH"))
+    assertEquals(Some((5,3)), search("ABC*EFGH"))
   }
 
   @Test
@@ -50,7 +50,7 @@ abstract class CycleDetectorT {
     assertEquals(Some((1,1)), search("A*"))
   }
 
-  def search[E](seq: Seq[Char]): Option[(Int,Int)] = {
-    detector.findCycle(CyclicLists.parse(seq))
+  def search(s: Iterable[Char]): Option[(Int,Int)] = {
+    detector.findCycle(Node.parse(s.toList))
   }
 }
