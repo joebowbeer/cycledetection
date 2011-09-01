@@ -50,7 +50,7 @@ abstract class CycleDetectorT {
     assertEquals(Some((1,1)), search("A*"))
   }
 
-  def search(s: Iterable[Char]): Option[(Int,Int)] = {
-    detector.findCycle(Node.parse(s.toList))
+  def search(s: Seq[Char]): Option[(Int,Int)] = {
+    detector.findCycle(Node.parse(s, '*'))
   }
 }

@@ -1,5 +1,5 @@
 package cycledetection
 
 trait CycleDetector[E] {
-  def findCycle(node: Node[E]): Option[(Int, Int)]
+  def findCycle(list: Node[E]): Option[(Int, Int)]
 }

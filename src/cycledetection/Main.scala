@@ -3,9 +3,10 @@ package cycledetection
 object Main {
 
   def main(args: Array[String]): Unit = {
-    def list = List('A', '*', 'B', 'C')
-    println(list)
-    new Floyd().findCycle(Node.parse(list)) match {
+    def node = Node.parse("ABC", 'B')
+    println(node)
+    println(node.toStream.take(5).mkString)
+    new Floyd().findCycle(node) match {
       case None => println("No loop")
       case Some((lambda, mu)) => println("lambda = " + lambda + ", mu = " + mu)
     }
