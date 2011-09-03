@@ -1,6 +1,6 @@
 package cycledetection
 
-import Node.step
+import Node._ // step
 
 /**
  * Robert W. Floyd's "Tortoise and Hare" algorithm.

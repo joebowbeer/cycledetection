@@ -21,36 +21,48 @@ abstract class CycleDetectorT {
   }
 
   @Test
+  def testA = {
+    assertEquals(None, search("A"))
+  }
+
+  @Test
   def testABC = {
     assertEquals(None, search("ABC"))
   }
 
   @Test
-  def testABA = {
-    assertEquals(Some((2,0)), search("*B"))
-  }
-
-  @Test
-  def testABCB = {
-    assertEquals(Some((2,1)), search("A*C"))
-  }
-
-  @Test
-  def testABCDEFGHDEFGH = {
-    assertEquals(Some((5,3)), search("ABC*EFGH"))
-  }
-
-  @Test
   def testAA = {
-    assertEquals(Some((1,0)), search("*"))
+    assertEquals(Some((1,0)), search("A", 'A'))
   }
 
   @Test
   def testABB = {
-    assertEquals(Some((1,1)), search("A*"))
+    assertEquals(Some((1,1)), search("AB", 'B'))
+  }
+
+  @Test
+  def testABA = {
+    assertEquals(Some((2,0)), search("AB", 'A'))
+  }
+
+  @Test
+  def testABCB = {
+    assertEquals(Some((2,1)), search("ABC", 'B'))
+  }
+
+  @Test
+  def testABCDEFGHDEFGH = {
+    assertEquals(Some((5,3)), search("ABCDEFGH", 'D'))
   }
 
   def search(s: Seq[Char]): Option[(Int,Int)] = {
-    detector.findCycle(Node.parse(s, '*'))
+    println(s)
+    detector.findCycle(Node.parse(s))
+  }
+
+  def search(s: Seq[Char], startCycle: Char): Option[(Int,Int)] = {
+    val list = Node.parse(s, startCycle)
+    println(list.toStream.take(s.length*2).mkString)
+    detector.findCycle(list)
   }
 }

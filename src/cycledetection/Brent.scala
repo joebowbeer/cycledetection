@@ -1,6 +1,6 @@
 package cycledetection
 
-import Node.step
+import Node._ // step
 
 /**
  * Richard P. Brent's algorithm, also known as the "Teleporting Tortoise".
