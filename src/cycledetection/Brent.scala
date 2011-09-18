@@ -1,6 +1,6 @@
 package cycledetection
 
-import Node._ // step
+import Node._ // step function
 
 /**
  * Richard P. Brent's algorithm, also known as the "Teleporting Tortoise".
@@ -14,41 +14,38 @@ class Brent[E] extends CycleDetector[E]  {
      */
     var (tort, hare) = (list, list)
     var limit = 1
-    var lambda = 0
+    var length = 0
     do {
-      if (lambda == limit) {
+      if (length == limit) {
         // start a new pass
         tort = hare // teleport
         limit *= 2
-        lambda = 0
+        length = 0
       }
       hare = step(hare)
-      lambda += 1
+      length += 1
     } while (hare != null && !(hare eq tort))
 
     if (hare == null)
       return None
 
     /*
-     * Find position of first repetition of length lambda.
+     * With the tortoise starting from the head of the list and the hare
+     * spotted 'length' steps ahead, advance the tortoise and hare at the
+     * same speed until they meet at the start of the repetition.
      */
+    var start = 0
+    tort = list
     hare = list
-    0 until lambda foreach {_ =>
+    (0 until length) foreach {_ =>
       hare = step(hare)
     }
-
-    /*
-     * Find position of first repetition of length mu.
-     * The hare and tortoise move at the same speed.
-     */
-    var mu = 0
-    tort = list
     while (!(tort eq hare)) {
         tort = step(tort)
         hare = step(hare)
-        mu += 1
+        start += 1
     }
 
-    return Some((lambda, mu))
+    return Some(start, length)
   }
 }

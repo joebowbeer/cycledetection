@@ -32,27 +32,27 @@ abstract class CycleDetectorT {
 
   @Test
   def testAA = {
-    assertEquals(Some((1,0)), search("A", 'A'))
+    assertEquals(Some(0,1), search("A", 'A'))
   }
 
   @Test
   def testABB = {
-    assertEquals(Some((1,1)), search("AB", 'B'))
+    assertEquals(Some(1,1), search("AB", 'B'))
   }
 
   @Test
   def testABA = {
-    assertEquals(Some((2,0)), search("AB", 'A'))
+    assertEquals(Some(0,2), search("AB", 'A'))
   }
 
   @Test
   def testABCB = {
-    assertEquals(Some((2,1)), search("ABC", 'B'))
+    assertEquals(Some(1,2), search("ABC", 'B'))
   }
 
   @Test
   def testABCDEFGHDEFGH = {
-    assertEquals(Some((5,3)), search("ABCDEFGH", 'D'))
+    assertEquals(Some(3,5), search("ABCDEFGH", 'D'))
   }
 
   def search(s: Seq[Char]): Option[(Int,Int)] = {

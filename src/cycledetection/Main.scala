@@ -8,7 +8,8 @@ object Main {
     println(node.toStream.take(5).mkString)
     new Floyd().findCycle(node) match {
       case None => println("No loop")
-      case Some((lambda, mu)) => println("lambda = " + lambda + ", mu = " + mu)
+      case Some((start, length)) =>
+        println("start = " + start + ", length = " + length)
     }
   }
 }
